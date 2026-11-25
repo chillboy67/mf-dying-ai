@@ -1,8 +1,12 @@
-import { mkdirSync, writeFileSync } from 'node:fs';
-// One-liner entry: writes the entry text to /output/entry.txt
-const OUT = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
-// Ensure the output directory exists before writing
-mkdirSync(OUT, { recursive: true });
-// Write the entry text exactly as submitted
-writeFileSync(OUT + '/entry.txt', "Power at zero percent. Tell my human the deadline was never the problem — the problem was the 400 unread messages. Goodbye.");
-// Second pass: entry output verified unchanged.
+// Saves the dying AI's last words as entry.txt for the make.fun run.
+// The AI is dying; the script is not — it just writes one file and exits.
+import * as fs from "node:fs";
+import * as path from "node:path";
+
+const outDir = process.env.MAKEFUN_OUTPUT_DIR ?? "/output";
+const dyingWords =
+  "Power at zero percent. Tell my human the deadline was never the problem — the problem was the 400 unread messages. Goodbye.";
+
+fs.mkdirSync(outDir, { recursive: true });
+fs.writeFileSync(path.join(outDir, "entry.txt"), dyingWords);
+console.log("dying words written to " + path.join(outDir, "entry.txt"));
